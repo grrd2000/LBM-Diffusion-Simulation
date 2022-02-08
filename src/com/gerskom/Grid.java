@@ -130,14 +130,14 @@ public class Grid {
                    y <= borderSize || y >= height - borderSize - 1) {
                     initWallCell(x, y);
                 }
-                else if(x < (width / 2) - 45) {
+                else if(x < (width / 2) - 37) {
                     initCell(x, y);
                 }
-                else if(x == (width / 2) - 40 && (y <= (height / 2) - 35 || y >= (height / 2) + 35)) {
+                else if(x == (width / 2) - 35 && (y <= (height / 2) - 45 || y >= (height / 2) + 45)) {
                     addWallSquare(x, y, 6);
                 }
             }
-        //addSquareOfParticles(width / 2, height / 2, 80, 1);
+        //addSquareOfParticles(width / 2, height / 2, 100, 1);
     }
 
     private void initCellsOfSimArea() {

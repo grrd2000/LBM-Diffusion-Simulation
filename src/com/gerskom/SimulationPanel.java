@@ -69,12 +69,17 @@ public class SimulationPanel extends JPanel {
         started = true;
         Timer timer;
 
-        int taskSizeX = (int)Math.ceil((double)((map.width - 1) - 1) / XTASKS);
-        int taskSizeY = (int)Math.ceil((double)((map.height - 1) - 1) / YTASKS);
+        //int taskSizeX = (int)Math.ceil((double)((map.width - 1) - 1) / XTASKS);
+        //int taskSizeY = (int)Math.ceil((double)((map.height - 1) - 1) / YTASKS);
 
         GridTaskMaker sim = new GridTaskMaker(map, 0, map.width - 1, 0, map.height - 1);
 
         timer = new Timer(deltaTime, e -> {
+            if(i % 15 == 0) {
+                try { exportImage("gas_diffusion"); }
+                catch (IOException ex) { ex.printStackTrace(); }
+            }
+
             firstTime = System.nanoTime();
             i++;
 
@@ -103,7 +108,7 @@ public class SimulationPanel extends JPanel {
                 }
             }
             executor.shutdown();*/
-            if((i % 4) == 0)
+            if((i % 15) == 0)
                 repaint();
 
             secondTime = System.nanoTime();
@@ -117,19 +122,22 @@ public class SimulationPanel extends JPanel {
 
         for(int x = 0; x < map.width; x++){
             for(int y = 0; y < map.height; y++){
-                if(tmpData[x][y] != -1) {
-                    int color = (int)(tmpData[x][y] * 255);
+                if(map.wallTable[x][y] != Grid.wall) {
+                    int color = (int)(tmpData[x][y] * 210) + 25;
+                    if(color > 255) color = 255;
                     g2D.setColor(new Color(color, color, color));
                 }
-                else
+                else if (map.wallTable[x][y] == Grid.wall)
                     g2D.setColor(wallColor);
+                else
+                    g2D.setColor(bgColor);
 
                 g2D.fillRect(x, y, 1, 1);
             }
         }
         g2D.dispose();
 
-        String formatName = "bmp";
+        String formatName = "png";
         File file;
 
         if (i != 0)

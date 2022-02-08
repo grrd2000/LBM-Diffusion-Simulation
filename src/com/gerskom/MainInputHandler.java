@@ -27,7 +27,7 @@ public class MainInputHandler implements KeyListener, MouseListener, MouseMotion
             }
             case 'f' -> {
                 try {
-                    simulationPanel.exportImage("lattice_gas");
+                    simulationPanel.exportImage("gas_diffusion");
                     System.out.println("\nFRAME " + simulationPanel.i + " EXPORTED");
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -70,13 +70,13 @@ public class MainInputHandler implements KeyListener, MouseListener, MouseMotion
             }
             case 2 -> {
                 mouseButton = 2;
-                //simulationPanel.map.removeSquareOfParticles(x, y, 100);
-                simulationPanel.map.initCell(x, y);
+                simulationPanel.map.removeSquareOfParticles(x, y, 60);
+                //simulationPanel.map.initCell(x, y);
             }
             case 3 -> {
                 mouseButton = 3;
                 if(opt == 1)
-                    simulationPanel.map.addSquareOfParticles(x, y, 50, 0.95f);
+                    simulationPanel.map.addSquareOfParticles(x, y, 60, 1f);
                 else
                     simulationPanel.map.addBrushOfParticles(x, y, brushSize, brushDensity);
             }
@@ -112,12 +112,13 @@ public class MainInputHandler implements KeyListener, MouseListener, MouseMotion
                 else
                     simulationPanel.map.removeWallSquare(x, y, 10);
             }
-            case 2 -> simulationPanel.map.removeSquareOfParticles(x, y, 100);
+            case 2 -> simulationPanel.map.removeSquareOfParticles(x, y, 60);
             case 3 ->  {
                 if(opt == 1)
-                    simulationPanel.map.addSquareOfParticles(x, y, 100, 0.95f);
-                else
+                    simulationPanel.map.addSquareOfParticles(x, y, 60, 1f);
+                else {
                     simulationPanel.map.addBrushOfParticles(x, y, brushSize, brushDensity);
+                }
             }
 
         }
